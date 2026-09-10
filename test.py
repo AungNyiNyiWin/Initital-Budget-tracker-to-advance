@@ -107,13 +107,44 @@ while True:
         try:
             edit_number = int(input("enter expense number to edit:"))
             new_amount = int(input("enter new amount :"))
-            expenses[edit_number-1]["amount"]=new_amount
-            print("new amount updated.")
-            for expense in expenses:
-                print(expense["category"],":",expense["amount"])
+            if new_amount <= 0:
+                print("invalid new amount.")
+            else:
+                expenses[edit_number-1]["amount"]=new_amount
+                print("new amount updated.")
+                for expense in expenses:
+                    print(expense["category"],":",expense["amount"])
         except ValueError:
             print("please enter a number.")
         except IndexError:
             print("invalid expense number.")
+
+    elif choice == "9":
+        if not expenses:
+            print("no expense recorded.")
+        else:
+            for i,expense in enumerate(expenses,start=1):
+                print(i,expense["category"],":",expense["amount"])
+
+        try:
+            edit_number = int(input("enter expense number to edit:"))
+            new_category= input("enter new category :").strip().lower()
+            new_amount = int(input("enter new amount:"))
+            if new_amount <= 0 :
+                print("invalid new amount.")    
+            else:
+                expenses[edit_number-1]["category"]=new_category
+                expenses[edit_number-1]["amount"]=new_amount
+                print("category and amount updated.")
+                for expense in expenses:
+                    print(expense["category"],":",expense["amount"])
+        except ValueError:
+            print("please enter a number.")
+        except IndexError:
+            print("invalid expense number.")
+
+    elif choice == "10":
+        print("Good bye")
+        break
 
 
