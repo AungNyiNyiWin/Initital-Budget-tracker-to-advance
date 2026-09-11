@@ -17,138 +17,136 @@ while True:
     choice = input("Enter your choice:")
 
     if choice == "1":
-        
         while True:
-            new_income = int(input("enter new income:"))
-            if new_income <= 0:
-                print("invaild income:")
-            else:
-                income += new_income
-                print("income saved.")
-                print("income :", income)
-                break
-
+            try: 
+                new_income = int(input("enter new income:"))
+                if new_income <= 0:
+                    print("invalid income.")
+                else:
+                    income += new_income
+                    print("income saved.")
+                    print("income :",income)
+                    break
+            except ValueError:
+                print("please enter number only.")
     elif choice == "2":
-        category = input("Enter your category:")
-        while True:           
-            amount = int(input("Enter your amount:"))
-        
-            if amount <= 0:
-                print("invalid amount.")
-                                           #ထပ်တိုးထားသောသင်ခန်းစာပါ။amountသည် ၀ထက်ငယ်ပြီးအနှုတ်ကိန်းဖြစ်လျင် သုံးသည့်flow
-           
-            else:
-                break
-        expense = {
-                "category":category,"amount":amount
-            }
-        expenses.append(expense)
-        print("expense saved.")
-                
+        category =input("enter category").strip().lower()
+        while True:
+            try:
+                amount=int(input("enter amont:"))
+                if amount <= 0:
+                    print("invalid amount.")
+                else:
+                    expense ={
+                        "category":category,"amount":amount
+                    }
+                    expenses.append(expense)
+                    print("expense saved.")
+                    break
+            except ValueError:
+                print("please enter number only.")
 
     elif choice == "3":
         if not expenses:
-            print("no expense recorded")
+            print("no expense recorded.")
         else:
             for expense in expenses:
-                print("expense record:" ,expense["category"],":",expense["amount"])
+                print("expense record :",expense["category"],":",expense["amount"])
 
     elif choice == "4":
         if not expenses:
-            print("no expense recorded")
+            print("no expense recorded.")
         else:
             total_expense = sum(expense["amount"]for expense in expenses)
-            print("Total expense :", total_expense)
-        
+            print("total expense :",total_expense)
+
     elif choice == "5":
         if not expenses:
-            print("no expense recorded")
+            print("no expense recorded.")
         else:
             total_expense = sum(expense["amount"]for expense in expenses)
             remaining_balance = income - total_expense
-            print("remaining balance :",remaining_balance) 
-            if remaining_balance > 0:
-                print("you still have money.")
-
-            elif remaining_balance == 0:
-                print("your balance is zero.")
-
-            else:
-                print("you are in debt.")
+            print("remaining balance :",remaining_balance)
 
     elif choice == "6":
         if not expenses:
-            print("no expense recorded")
+            print("no expense recorded.")
         else:
             max_expense = max(expenses, key=lambda expense:expense["amount"])
             min_expense = min(expenses, key=lambda expense:expense["amount"])
-
-            print("Maximum Expense:", max_expense["category"],":",max_expense["amount"])
-            print("Minimum Expense:", min_expense["category"],":",min_expense["amount"])
+            print("maximum expense :",max_expense["category"],":",max_expense["amount"])
+            print("minimum expense :",min_expense["category"],":",min_expense["amount"])
 
     elif choice == "7":
         if not expenses:
-            print("no expense recorded")
+            print("no expense recorded.")
+            continue
         else:
             for i,expense in enumerate(expenses,start=1):
                 print(i,expense["category"],":",expense["amount"])
 
-            delete_number = int(input("enter expense number to delete:"))
-
-            expenses.pop(delete_number-1) 
-            print("expense deleted")
-
+        try:
+            delete_number = int(input("enter expense number to delete :"))
+            expenses.pop(delete_number-1)
+            print("expense deleted.")
             for expense in expenses:
                 print(expense["category"],":",expense["amount"])
+        except ValueError:
+            print("please enter number only")
+        except IndexError:
+            print("invalid number.")
 
     elif choice == "8":
         if not expenses:
-            print("no expense recorded")
+            print("no expense recorded.")
+            continue
         else:
             for i,expense in enumerate(expenses,start=1):
                 print(i,expense["category"],":",expense["amount"])
 
-            edit_number = int(input("enter expense number to edit:"))
-            new_amount = int(input("enter new amount"))
-
-            expenses[edit_number-1]["amount"] = new_amount
-
-            print("expense edited")
-
-            for expense in expenses:
-                print(expense["category"],":",expense["amount"])
+        try:
+            edit_number = int(input("enter expense number to edit :"))
+            new_amount = int(input("enter new amount:"))
+            if new_amount <= 0:
+                print("invalid new amount.")
+            else:
+                expenses[edit_number-1]["amount"]=new_amount
+                print("expense edited.")
+                for expense in expenses:
+                    print(expense["category"],":",expense["amount"])
+        except ValueError:
+            print("please enter number only.")
+        except IndexError:
+            print("invalid number.")
 
     elif choice == "9":
         if not expenses:
-            print("no expense recorded")
+            print("no expense recorded.")
+            continue
         else:
             for i,expense in enumerate(expenses,start=1):
                 print(i,expense["category"],":",expense["amount"])
-            edit_number = int(input("enter expense number to edit"))
-            new_category = input("Enter new category:")
-            new_amount = int(input("Enter new amount:"))
+        
+        try:
+            edit_number = int(input("enter expense number to edit :"))
+            new_category = input("enter new category:").strip().lower()
+            new_amount = int(input("enter new amount:"))
+            if new_amount <= 0:
+                print("invalid new amount.")
+            else:
+                expenses[edit_number-1]["category"]=new_category
+                expenses[edit_number-1]["amount"]=new_amount
+                print("category and amount edited.")
+                for expense in expenses:
+                    print(expense["category"],":",expense["amount"])
+        except ValueError:
+            print("please enter number only.")
+        except IndexError:
+            print("invalid number.")
 
-            expenses[edit_number-1]["category"]=new_category
-            expenses[edit_number-1]["amount"]=new_amount
-
-            print("category and amount updated.")
-            for expense in expenses:
-                print(expense["category"],":",expense["amount"])
-
-    elif choice =="10":
-        print("Good Bye")
+    elif choice == "10":
+        print("good bye!")
         break
 
 
-
-
-
-         
-
-
-
-
-         
-         
-         
-         
+        
