@@ -40,30 +40,30 @@ def show_expense():
         for expense in expenses:
             print(expense["category"],":",expense["amount"])
 
-def total_expense():
+def total_expense(expenses):
     if not expenses:
-        print("no expense recorded.")
+        return 0
     else:
-        total = sum(expense["amount"]for expense in expenses)
+        total = 0
+        for expense in expenses:
+            total += expense["amount"]  # လောလောဆယ်ဒီနားပြောင်းသွားပါပြီ။ total မူလတန်ဖိုး ၀ ပါ။ total ထဲကို expense amount တွေ ထည့်ပေါင်းတဲ့ပုံစံပါ။
         return total
-    
 
-def remaining_balance():
-    if not expenses:         
-        print("no expense recorded.")
-    else:
-        total = total_expense()   #flow ပြောင်းသွားပါပြီ print မသုံးပါ။ return သုံးပါတယ်။
-        return income - total
-        
-
-def max_min_expense():
+def remaining_balance(income,expenses):
     if not expenses:
-        print("no expense recorded.")
+        return 0
+    else:
+        total = total_expense(expenses)
+        balance = income-total
+    return balance
+
+def max_min_expense(expenses):
+    if not expenses:
+        return None
     else:
         max_expense = max(expenses,key=lambda expense:expense["amount"])
         min_expense = min(expenses,key=lambda expense:expense["amount"])
-        print("maximum expense:",max_expense["category"],":",max_expense["amount"])
-        print("minimum expense:",min_expense["category"],":",min_expense["amount"])
+    return max_expense,min_expense
 
 def delete_expense():
     if not expenses:
@@ -149,11 +149,17 @@ while True:
     elif choice =="3":
         show_expense()
     elif choice == "4":
-        print("total expense:",total_expense())
+        print("total expense:",total_expense(expenses))
     elif choice == "5":
-        print("remaining balance:",remaining_balance())  #return function အရ ဒီလိုရေးပေးရပါတယ်။
+        print("remaining balance:",remaining_balance(income,expenses))  #return function အရ ဒီလိုရေးပေးရပါတယ်။
     elif choice == "6":
-        max_min_expense()
+        result = max_min_expense(expenses)
+        if result is None:
+            print("no income saved.")
+        else:
+            max_expense,min_expense = result
+            print("max expense :", max_expense["category"],":",max_expense["amount"])
+            print("min expense :", min_expense["category"],":",min_expense["amount"])
     elif choice == "7":
         delete_expense()
     elif choice == "8":
