@@ -39,3 +39,18 @@ def expense_menu():
         elif expense_choice == "2":
             expense = total_expense()
             print("total expense:",expense)
+
+def reports():
+    print("\n====reports====")
+    print("1. total income:")
+    print("2. total expense:")
+    print("3. total income summary")
+    print("4. total expense summary")
+    print("5. max/min income")
+    print("6. max/min expense")
+    print("7. income total  source by search")
+    print("8. expense total category by search")
+
+    report_choice = input("enter report choice:")
+    if report_choice == "1":
+        
