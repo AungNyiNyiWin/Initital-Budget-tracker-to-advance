@@ -1,10 +1,8 @@
-from income import total_income
-from expense import total_expense
 
-def remaining_balance():
-    income = total_income
-    expense = total_expense
-    balance = income -expense
+
+def remaining_balance(incomes,expenses):
+    balance = incomes- expenses  #အသစ်နေရာ
+    
     return balance
 
 def show_list(items,key_name):
@@ -32,7 +30,7 @@ def update_items(items,get_number,key,get_value):
     items[index][key]= value
 
 def get_amount():
-    return get_positive_number()
+    return get_positive_number("please enter positive amount")
 
 def get_text(message):
     return input(message)

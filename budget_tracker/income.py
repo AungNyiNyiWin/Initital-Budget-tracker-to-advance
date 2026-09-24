@@ -9,8 +9,8 @@ def save_income():
     dmy_date = today.strftime("%d-%m-%Y")
     note = input("enter note").strip().lower()
     income = {
-        "source":source,"amount":amount,"date":dmy_date,"note":note
-    }
+            "source":source,"amount":amount,"date":dmy_date,"note":note
+        }
     incomes.append(income)
     print("income saved.")
 
@@ -46,7 +46,17 @@ def income_source_total_byrearch(incomes,source):
                 total += income["amount"]
         return total
 
-def get_income_number():
+def show_income_source_total_bysearch():
+    source = input("enter source:").strip().lower()
+    result = income_source_total_byrearch(incomes,source)
+    if result is None:
+        print("no income recorded.")
+    else:
+        source = input("enter source:")
+        print("income source total by search", result)
+
+
+def get_income_number(incomes):
     number = int(input("enter income number:"))
     if number < 1 or number > len(incomes):
         raise IndexError
@@ -79,7 +89,7 @@ def edit_income_amount():
             print("please enter number only no text.")
         except IndexError:
             print("please enter income number only")        
-            
+                
 def edit_income_source():
     if not incomes:
         print("no income recorded.")
@@ -93,7 +103,7 @@ def edit_income_source():
             print("please enter number only no text.")
         except IndexError:
             print("please enter income number only")        
-            
+                
 def edit_income_note():
     if not incomes:
         print("no income recorded.")
@@ -107,3 +117,22 @@ def edit_income_note():
             print("please enter number only no text.")
         except IndexError:
             print("please enter income number only")
+
+
+def show_max_min_income():
+        result = max_min_income()
+        if result is None:
+            print("no income recorded.")
+        else:
+            max_income,min_income = result
+            print(max_income["source"],":",max_income["amount"],":",max_income["date"],":",max_income["note"])
+            print(min_income["source"],":",min_income["amount"],":",min_income["date"],":",min_income["note"])
+def max_min_income():
+    if not incomes:
+        return None
+    else:
+        max_income = max(incomes, key= lambda income:income["amount"])
+        min_income = min(incomes, key= lambda income:income["amount"])
+    return max_income,min_income
+
+    
